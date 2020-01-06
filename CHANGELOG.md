@@ -1,3 +1,3 @@
-## [0.0.1] - TODO: Add release date.
+## [1.0.0] - 2020-01-06
 
-* TODO: Describe initial release.
+* stable release of responsive_ui

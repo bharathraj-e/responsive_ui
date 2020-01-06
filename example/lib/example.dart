@@ -1,125 +1,7 @@
-# Responsive UI
+import 'package:flutter/material.dart';
+import 'package:responsive_ui/responsive_ui.dart';
 
-responsive_ui Flutter package helps you to create a responsive widget and Nested responsive widget too. Works on all flutter platform (android, iOs ,**web** ) with both portrait and LandScape mode.
-
-## Getting Started
-
-It works as same as Bootstrap Row Column method, Splitting screen into 12 columns and placing widget by combing column based on screen size.
-
-# Screens
-
-For phones - screens <= 600px wide
-
-For tablets - screens > 600px wide && <= 990 px wide
-
-For laptops - screens > 990px wide
-
-<video src='https://raw.githubusercontent.com/bharathraj-e/responsive_ui/master/pics/sample1.m4v' width='75%' ></video>
-
-# Widgets
-
-## 1. Responsive()
-
-Responsive intakes List\<Widget> & default column size for each widget can be declared.
-
-```dart
-    Responsive(
-        defaultColS : 12,//default column size for Small screen 12
-        defaultColM : 6, //default column size for Medium screen 12
-        defaultColL : 4, //default column size for Large screen 12
-        children:<Widget>[
-            Container(
-                color: Colors.amber,
-                alignment: Alignment.center,
-                child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Text('child 1'),
-                ),
-            ),
-            Container(
-                color: Colors.blue,
-                alignment: Alignment.center,
-                child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Text('child 2'),
-                ),
-            ),
-        ]
-    )    
-```
-
- `defaultColS`, `defaultColM`, `defaultColL` default to  `12` & various from [0-12] 
-
- 0 - 0.0 width (gone)
-
- 12 - full width (provided by parent widget not screen width) 
-
-## 2. Col()
-
-To Override the `defaultCol` size use Col() as a widget in Responsive().
-
-Col() intakes child & column sizes.
-
-
-## Lite Example
-
-```dart
-    Responsive(
-        defaultColS : 12, //defaults to 12
-        defaultColM : 6, //defaults to 12
-        defaultColL : 4, //defaults to 12
-        children:<Widget>[
-             Container(
-                color: Colors.amber,
-                alignment: Alignment.center,
-                child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Text('child 1'),
-                ),
-            ),
-            Col(           // as colM not mentioned, it takes the defaulColM size
-                colS: 10,  // colS & ColL override the defaultCol size
-                colL: 3,
-                child: Container(
-                alignment: Alignment.center,
-                color: Colors.redAccent,
-                    child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Text('Col Child'),
-                    ),
-                ),
-            ),
-            Container(
-                color: Colors.blue,
-                alignment: Alignment.center,
-                child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Text('child 3'),
-                ),
-            ),
-        ]
-    )    
-
-```
-**Col() works only as direct child of Responsive() widget**
-
-## Nested Responsive
-
-Placing a Responsive() widget into a Responsive().
-
-The child Responsive() widget takes a width provided by Parent Responsive() widget and **not the screen width**
-
-## Complete Example
-
-<img src="https://raw.githubusercontent.com/bharathraj-e/responsive_ui/master/pics/portrait.png" width="50%">
-
-<img src="https://raw.githubusercontent.com/bharathraj-e/responsive_ui/master/pics/landscape.png" width="75%">
-
-
-
-```dart
-class FullExample extends StatelessWidget {
-
+class ExamplePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -170,7 +52,7 @@ class FullExample extends StatelessWidget {
                         child: Column(
                           children: <Widget>[
                             Responsive(
-                              // nested Responsive widget
+                              // nested Col12 widget
                               defaultColS: 4,
                               defaultColM: 4,
                               defaultColL: 4,
@@ -208,7 +90,7 @@ class FullExample extends StatelessWidget {
                                     color: Colors.redAccent,
                                     child: Padding(
                                       padding: const EdgeInsets.all(8.0),
-                                      child: Text('Nested Col'),
+                                      child: Text('Nested ColChild'),
                                     ),
                                   ),
                                 )
@@ -216,7 +98,7 @@ class FullExample extends StatelessWidget {
                             ),
                             Padding(
                               padding: const EdgeInsets.all(8.0),
-                              child: Text('child 4 ~ Nested Responsive Widget'),
+                              child: Text('child 4 ~ Nested Col12 Widget'),
                             )
                           ],
                         )),
@@ -229,7 +111,7 @@ class FullExample extends StatelessWidget {
                         alignment: Alignment.center,
                         child: Padding(
                           padding: const EdgeInsets.all(8.0),
-                          child: Text('Col 1'),
+                          child: Text('ColChild 1'),
                         ),
                       ),
                     ),
@@ -242,7 +124,7 @@ class FullExample extends StatelessWidget {
                         alignment: Alignment.center,
                         child: Padding(
                           padding: const EdgeInsets.all(8.0),
-                          child: Text('Col 2'),
+                          child: Text('ColChild 2'),
                         ),
                       ),
                     ),
@@ -265,12 +147,10 @@ class FullExample extends StatelessWidget {
                   ]),
               Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: Text('Responsive Widget'),
+                child: Text('Col12 Widget'),
               )
             ],
           ),
-        ),
-    );
+        ));
   }
 }
-```
