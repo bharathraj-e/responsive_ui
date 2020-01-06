@@ -8,13 +8,20 @@ It works as same as Bootstrap Row Column method, Splitting screen into 12 column
 
 # Screens
 
-For phones - screens <= 600px wide
+**For phones ~ screen size <= 600px wide**
 
-For tablets - screens > 600px wide && <= 990 px wide
+<img src="https://raw.githubusercontent.com/bharathraj-e/responsive_ui/master/pics/mobile.png" width="50%">
 
-For laptops - screens > 990px wide
+**For tablets - screen size > 600px wide && <= 990 px wide**
 
-<video src='https://raw.githubusercontent.com/bharathraj-e/responsive_ui/master/pics/sample1.m4v' width='75%' ></video>
+<img src="https://raw.githubusercontent.com/bharathraj-e/responsive_ui/master/pics/tab.png" width="75%">
+
+
+**For laptops ~ screen size > 990px wide
+
+<img src="https://raw.githubusercontent.com/bharathraj-e/responsive_ui/master/pics/lap.png" width="100%">
+
+
 
 # Widgets
 
@@ -111,11 +118,7 @@ The child Responsive() widget takes a width provided by Parent Responsive() widg
 
 ## Complete Example
 
-<img src="https://raw.githubusercontent.com/bharathraj-e/responsive_ui/master/pics/portrait.png" width="50%">
-
-<img src="https://raw.githubusercontent.com/bharathraj-e/responsive_ui/master/pics/landscape.png" width="75%">
-
-
+<img src='https://raw.githubusercontent.com/bharathraj-e/responsive_ui/master/pics/out.gif' width='90%' >
 
 ```dart
 class FullExample extends StatelessWidget {
