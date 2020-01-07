@@ -1,10 +1,12 @@
 # Responsive UI
 
+[![Pub](https://img.shields.io/pub/v/responsive_ui.svg?style=flat-square)](https://pub.dartlang.org/packages/responsive_ui)
+
 responsive_ui Flutter package helps you to create a responsive widget and Nested responsive widget too. Works on all flutter platform (android, iOs ,**web** ) with both portrait and LandScape mode.
 
 ## Getting Started
 
-It works as same as Bootstrap Row Column method, Splitting screen into 12 columns and placing widget by combing column based on screen size.
+It works as same as Bootstrap Row Column method, Splitting screen into 12 columns and placing widget by combining column based on screen size.
 
 # Screens
 
