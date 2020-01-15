@@ -6,7 +6,7 @@
 
 ## Getting Started
 
-It works as same as Bootstrap Row Column method, Splitting screen into 12 columns and placing widget by combing column based on screen size.
+It works as same as Bootstrap Row Column method, Splitting screen into 12 columns and placing widget by combining column based on screen size.
 
 
 # Screens
