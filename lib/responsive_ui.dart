@@ -4,11 +4,11 @@ import 'package:flutter/material.dart';
 
 enum _Screen { SMALL, MEDIUM, LARGE }
 
-class Responsive extends StatelessWidget {
+class ResponsiveRow extends StatelessWidget {
   ///
   /// Create an Responsive Widget.
   ///
-  /// ## Col12's grid system allows up to 12 columns across the page.(like Materialize css, Bootstrap grid system)
+  /// ## ResponsiveRow's grid system allows up to 12 columns across the page (like Bootstrap, Materialize css grid system)
   ///
   /// `defaultColS` ~ [0 - 12] (for phones - screens <= 600px wide) default `12`
   ///
@@ -20,23 +20,23 @@ class Responsive extends StatelessWidget {
   ///
   /// This default column size applies to all children widget.
   ///
-  /// ### To use individual column size for a widget try `ColChild()` widget
+  /// ### To use individual column size for a widget try `ResponsiveColumn()` widget
   ///
-  /// `children` takes [List<Widget>] or [List<ColChild>]
+  /// `children` takes [List<Widget>] or [List<ResponsiveColumn>]
   ///
   /// ```dart
-  ///  ColChild(
-  ///     child: Container(),
+  ///  ResponsiveColumn(
   ///     colS: 12 // 0 - 12 if `null` takes defaultColS
   ///     colM: 6, // 0 - 12 if `null` takes defaultColM
   ///     colL: 4, // 0 - 12 if `null` takes defaultColL
+  ///     child: Container(),
   ///   )
   /// ```
-  /// `ColChild()` column size overrides the defaultCol size of `Col12` widget
+  /// `ResponsiveColumn()` column sizes overrides the defaultCol sizes of `ResponsiveRow()` widget
   ///
   /// [Example]
   /// ```dart
-  ///   Col12(
+  ///   ResponsiveRow(
   ///      defaultColS: 12,
   ///      defaultColM: 6,
   ///      defaultColL: 3,
@@ -44,21 +44,21 @@ class Responsive extends StatelessWidget {
   ///
   ///        Container(),
   ///
-  ///        ColChild(
+  ///        ResponsiveColumn(
   ///          colS: 12,
   ///          colM: 8,
   ///          colL: 4,
   ///          child: Container(),
   ///        ),
   ///
-  ///       Container(),
+  ///        Container(),
   ///
-  ///       Col12(              // nested `col12` takes a width allocated by its parent Col12
+  ///        ResponsiveColumn(              // nested `ResponsiveColumn` takes a width allocated by its parent ResponsiveRow
   ///          defaultColM: 6,
   ///          defaultColL: 3,
   ///          children: <Widget>[
   ///            Container(),
-  ///            ColChild(
+  ///            ResponsiveColumn(
   ///              colS: 12,
   ///              colM: 8,
   ///              colL: 4,
@@ -72,7 +72,7 @@ class Responsive extends StatelessWidget {
   ///
   /// ```
 
-  Responsive({
+  ResponsiveRow({
     @required this.children,
     this.defaultColS = 12,
     this.defaultColM = 12,
@@ -268,17 +268,17 @@ class Responsive extends StatelessWidget {
       children: children.map((child) {
         return LayoutBuilder(builder: (ctx, box) {
           double _width = box.maxWidth;
-          if (child is Col) {
-            Col colChild = child;
+          if (child is ResponsiveColumn) {
+            ResponsiveColumn responsiveColumn = child;
             _width = _calulateWidth(
                 screen,
-                box.maxWidth,
-                colChild.colS ?? defaultColS,
-                colChild.colM ?? defaultColM,
-                colChild.colL ?? defaultColL);
+                _width,
+                responsiveColumn.colS ?? defaultColS,
+                responsiveColumn.colM ?? defaultColM,
+                responsiveColumn.colL ?? defaultColL);
           } else {
             _width = _calulateWidth(
-                screen, box.maxWidth, defaultColS, defaultColM, defaultColL);
+                screen, _width, defaultColS, defaultColM, defaultColL);
           }
           return SizedBox(
             width: _width,
@@ -303,7 +303,7 @@ class Responsive extends StatelessWidget {
   }
 }
 
-class Col extends StatelessWidget {
+class ResponsiveColumn extends StatelessWidget {
   final Widget child;
 
   /// input range [0 -12]
@@ -312,7 +312,7 @@ class Col extends StatelessWidget {
   ///
   /// `12` ~ full width
   ///
-  /// `null` ~ takes [defaultColS] value from `Col12` Widget
+  /// `null` ~ takes [defaultColS] value from `ResponsiveRow` Widget
   final int colS;
 
   /// input range [0 -12]
@@ -321,7 +321,7 @@ class Col extends StatelessWidget {
   ///
   /// `12` ~ full width
   ///
-  /// `null` ~ takes [defaultColM] value from `Col12` Widget
+  /// `null` ~ takes [defaultColM] value from `ResponsiveRow` Widget
   final int colM;
 
   /// input range [0 -12]
@@ -330,23 +330,23 @@ class Col extends StatelessWidget {
   ///
   /// `12` ~ full width
   ///
-  /// `null` ~ takes [defaultColL] value from `Col12` Widget
+  /// `null` ~ takes [defaultColL] value from `ResponsiveRow` Widget
   final int colL;
 
-  /// ### This Widget works only as direct children of `Col12` Widget
+  /// ### This Widget works only as direct children of `ResponsiveRow` Widget
   ///
   /// [Ex]
   /// ```dart
-  ///   Col12(        // Parent Col12 Widget
+  ///   ResponsiveRow(        // Parent ResponsiveRow Widget
   ///     children:[
-  ///       ColChild( // Direct child of Col12 (works as mentioned col values)
+  ///       ResponsiveColumn( // Direct child of ResponsiveRow (works as mentioned col values)
   ///         colS : 12,
   ///         colm : 6,
   ///         colS : 4,
   ///         child : Container(),
   ///       ),
   ///       Container(
-  ///         child : ColChild( // not a Direct child of Col12 (so it doesn't works)
+  ///         child : ResponsiveColumn( // not a Direct child of ResponsiveRow (so it doesn't works)
   ///           colS : 12,
   ///           colm : 6,
   ///           colS : 4,
@@ -356,7 +356,8 @@ class Col extends StatelessWidget {
   ///     ],
   ///   )
   /// ```
-  const Col({this.colS, this.colM, this.colL, @required this.child})
+  const ResponsiveColumn(
+      {this.colS, this.colM, this.colL, @required this.child})
       : assert(child != null, "children shoud not be Null"),
         assert(colS == null || (colS >= 0 && colS <= 12)),
         assert(colM == null || (colM >= 0 && colM <= 12)),

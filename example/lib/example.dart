@@ -5,6 +5,7 @@ class ExamplePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        backgroundColor: Colors.grey[350],
         appBar: AppBar(
           title: Text('Responsive Example'),
           centerTitle: true,
@@ -16,138 +17,142 @@ class ExamplePage extends StatelessWidget {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
-              Responsive(
+              ResponsiveRow(
                   defaultColS: 12,
                   defaultColM: 6,
                   defaultColL: 3,
                   children: <Widget>[
-                    Container(
+                    Card(
                       color: Colors.amber,
-                      alignment: Alignment.center,
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
-                        child: Text('child 1'),
+                        child: Text('S12 M6 L3'),
                       ),
                     ),
-                    Container(
+                    Card(
                       color: Colors.blue,
-                      alignment: Alignment.center,
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
-                        child: Text('child 2'),
+                        child: Text('S12 M6 L3'),
                       ),
                     ),
-                    Container(
+                    Card(
                       color: Colors.grey,
-                      alignment: Alignment.center,
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
-                        child: Text('child 3'),
+                        child: Text('S12 M6 L3'),
                       ),
                     ),
-                    Container(
-                        padding: EdgeInsets.all(10),
-                        color: Colors.orangeAccent,
-                        alignment: Alignment.center,
-                        child: Column(
-                          children: <Widget>[
-                            Responsive(
-                              // nested Col12 widget
-                              defaultColS: 4,
-                              defaultColM: 4,
-                              defaultColL: 4,
-                              children: <Widget>[
-                                Container(
-                                  color: Colors.white,
-                                  alignment: Alignment.center,
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: Text('Nested child 1'),
-                                  ),
-                                ),
-                                Container(
-                                  color: Colors.lime,
-                                  alignment: Alignment.center,
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: Text('Nested child 2'),
-                                  ),
-                                ),
-                                Container(
-                                  color: Colors.indigo,
-                                  alignment: Alignment.center,
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: Text('Nested child 3'),
-                                  ),
-                                ),
-                                Col(
-                                  colS: 12,
-                                  colM: 12,
-                                  colL: 12,
-                                  child: Container(
-                                    alignment: Alignment.center,
-                                    color: Colors.redAccent,
+                    Card(
+                      child: Container(
+                          padding: EdgeInsets.all(10),
+                          color: Colors.orangeAccent,
+                          child: Column(
+                            children: <Widget>[
+                              ResponsiveRow(
+                                // nested Col12 widget
+                                defaultColS: 4,
+                                defaultColM: 4,
+                                defaultColL: 4,
+                                children: <Widget>[
+                                  Card(
+                                    color: Colors.white,
                                     child: Padding(
                                       padding: const EdgeInsets.all(8.0),
-                                      child: Text('Nested ColChild'),
+                                      child: Text('S4 M4 L4 Nested'),
                                     ),
                                   ),
-                                )
-                              ],
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Text('child 4 ~ Nested Col12 Widget'),
-                            )
-                          ],
-                        )),
-                    Col(
+                                  Card(
+                                    color: Colors.lime,
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: Text('S4 M4 L4 Nested'),
+                                    ),
+                                  ),
+                                  Card(
+                                    color: Colors.indigo,
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: Text('S4 M4 L4 Nested'),
+                                    ),
+                                  ),
+                                  ResponsiveColumn(
+                                    colS: 12,
+                                    colM: 12,
+                                    colL: 12,
+                                    child: Card(
+                                      color: Colors.redAccent,
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Text(
+                                            'S12 M12 L12 Nested Responsive Column '),
+                                      ),
+                                    ),
+                                  )
+                                ],
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child:
+                                    Text('S12 M6 L3 (Nested Responsive Row)'),
+                              )
+                            ],
+                          )),
+                    ),
+                    ResponsiveColumn(
                       colL: 6,
                       colS: 6,
                       colM: 6,
-                      child: Container(
+                      child: Card(
                         color: Colors.cyan,
-                        alignment: Alignment.center,
                         child: Padding(
                           padding: const EdgeInsets.all(8.0),
-                          child: Text('ColChild 1'),
+                          child: Text('S6 M6 L6 Responsive Column'),
                         ),
                       ),
                     ),
-                    Col(
-                      colL: 6,
-                      colS: 6,
-                      colM: 6,
-                      child: Container(
+                    ResponsiveColumn(
+                      colL: 2,
+                      colS: 2,
+                      colM: 2,
+                      child: Card(
+                        color: Colors.deepPurpleAccent,
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Text('S2 M2 L2 Responsive Column'),
+                        ),
+                      ),
+                    ),
+                    ResponsiveColumn(
+                      colL: 4,
+                      colS: 4,
+                      colM: 4,
+                      child: Card(
                         color: Colors.cyanAccent,
-                        alignment: Alignment.center,
                         child: Padding(
                           padding: const EdgeInsets.all(8.0),
-                          child: Text('ColChild 2'),
+                          child: Text('S4 M4 L4 Responsive Column'),
                         ),
                       ),
                     ),
-                    Container(
+                    Card(
                       color: Colors.green,
-                      alignment: Alignment.center,
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
-                        child: Text('child 5'),
+                        child: Text('S12 M6 L3'),
                       ),
                     ),
-                    Container(
+                    Card(
                       color: Colors.deepPurple,
-                      alignment: Alignment.center,
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
-                        child: Text('child 6'),
+                        child: Text('S12 M6 L3'),
                       ),
                     ),
                   ]),
               Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: Text('Col12 Widget'),
+                child: Text('ResponsiveRow'),
               )
             ],
           ),
