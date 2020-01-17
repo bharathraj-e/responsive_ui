@@ -85,7 +85,7 @@ class ExamplePage extends StatelessWidget {
                                       child: Padding(
                                         padding: const EdgeInsets.all(8.0),
                                         child: Text(
-                                            'S12 M12 L12 Nested Responsive Column '),
+                                            'S12 M7 L12 Nested Responsive Column '),
                                       ),
                                     ),
                                   )
@@ -100,14 +100,17 @@ class ExamplePage extends StatelessWidget {
                           )),
                     ),
                     ResponsiveColumn(
-                      colL: 6,
-                      colS: 6,
-                      colM: 6,
+                      colL: 4,
+                      colS: 2,
+                      colM: 5,
+                      offsetS: 4,
+                      offsetM: 1,
+                      offsetL: 2,
                       child: Card(
                         color: Colors.cyan,
                         child: Padding(
                           padding: const EdgeInsets.all(8.0),
-                          child: Text('S6 M6 L6 Responsive Column'),
+                          child: Text('S2 M5 L4 \noffset S4 M1 L2 '),
                         ),
                       ),
                     ),
