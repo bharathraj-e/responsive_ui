@@ -2,7 +2,13 @@
 
 [![Pub](https://img.shields.io/pub/v/responsive_ui.svg?style=flat-square)](https://pub.dartlang.org/packages/responsive_ui)
 
-## `responsive_ui` package helps you to create a responsive widget and Nested responsive widget too. Works on all flutter platform (android, iOs ,**web** ) with both Portrait and LandScape mode.
+### `responsive_ui` package helps you to create a responsive widget and Nested responsive widget too. Works on all flutter platform (android, iOs ,**web** ) with both Portrait and LandScape mode.
+
+## sample video
+
+[https://youtu.be/2koIFANjJZg](https://youtu.be/2koIFANjJZg)
+
+[![Watch the video](https://img.youtube.com/vi/2koIFANjJZg/maxresdefault.jpg)](https://youtu.be/2koIFANjJZg)
 
 ## Getting Started
 
@@ -123,6 +129,9 @@ ResponsiveColumn() intakes child & column sizes.
 Placing a ResponsiveRow() widget into a ResponsiveRow().
 
 The child ResponsiveRow() widget takes a width provided by Parent ResponsiveRow() widget and **not the screen width**
+
+
+
 
 ## Complete Example
 

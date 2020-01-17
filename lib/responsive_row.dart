@@ -77,6 +77,8 @@ class ResponsiveRow extends StatelessWidget {
     this.defaultColS = 12,
     this.defaultColM,
     this.defaultColL,
+    this.runSpacing = 0.0,
+    this.padding = const EdgeInsets.all(0),
     this.alignment = WrapAlignment.start,
     this.runAlignment = WrapAlignment.start,
     this.crossAxisAlignment = WrapCrossAlignment.start,
@@ -141,8 +143,22 @@ class ResponsiveRow extends StatelessWidget {
   ///
   final WrapCrossAlignment crossAxisAlignment;
 
+  /// How much space to place between the runs themselves in the cross axis.
+  ///
+  /// For example, if [runSpacing] is 10.0, the runs will be spaced at least
+  /// 10.0 logical pixels apart in the cross axis.
+  ///
+  /// If there is additional free space in the overall [Wrap] (e.g., because
+  /// the wrap has a minimum size that is not filled), the additional free space
+  /// will be allocated according to the [runAlignment].
+  ///
+  /// Defaults to 0.0.
+  final double runSpacing;
+
   final double _widthMobile = 600.0;
   final double _widthTab = 990;
+
+  final EdgeInsets padding;
 
   @override
   Widget build(BuildContext context) {
@@ -156,47 +172,61 @@ class ResponsiveRow extends StatelessWidget {
         ? _Screen.SMALL
         : screenWidth < _widthTab ? _Screen.MEDIUM : _Screen.LARGE;
 
-    return Wrap(
-      alignment: alignment,
-      runAlignment: runAlignment,
-      crossAxisAlignment: crossAxisAlignment,
-      children: children.map((child) {
-        return LayoutBuilder(builder: (ctx, box) {
-          if (child is ResponsiveColumn) {
-            ResponsiveColumn c = child;
+    return Padding(
+        padding: padding,
+        child: Wrap(
+          alignment: alignment,
+          runSpacing: runSpacing,
+          runAlignment: runAlignment,
+          crossAxisAlignment: crossAxisAlignment,
+          children: children.map((child) {
+            return LayoutBuilder(builder: (ctx, box) {
+              if (child is ResponsiveColumn) {
+                ResponsiveColumn c = child;
 
-            int kS = (c.offsetS + (c.colS ?? defaultColS) >= 12)
-                ? 12
-                : c.offsetS + (c.colS ?? defaultColS);
-            int kM = (c.offsetM + (c.colM ?? defaultColM) >= 12)
-                ? 12
-                : c.offsetM + (c.colM ?? defaultColM);
-            int kL = (c.offsetL + (c.colL ?? defaultColL) >= 12)
-                ? 12
-                : c.offsetL + (c.colL ?? defaultColL);
+                int kS = (c.offsetS + (c.colS ?? defaultColS) >= 12)
+                    ? 12
+                    : c.offsetS + (c.colS ?? defaultColS);
+                int kM = (c.offsetM + (c.colM ?? defaultColM) >= 12)
+                    ? 12
+                    : c.offsetM + (c.colM ?? defaultColM);
+                int kL = (c.offsetL + (c.colL ?? defaultColL) >= 12)
+                    ? 12
+                    : c.offsetL + (c.colL ?? defaultColL);
+                double w = _calulateWidth(screen, box.maxWidth, kS, kM, kL);
 
-            return SizedBox(
-              width: _calulateWidth(screen, box.maxWidth, kS, kM, kL),
-              child: Row(
-                mainAxisSize: MainAxisSize.max,
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: <Widget>[
-                  SizedBox(
-                      width: _calulateWidth(screen, box.maxWidth, c.colS ?? s,
-                          c.colM ?? m, c.colL ?? l),
-                      child: child),
-                ],
-              ),
-            );
-          }
-
-          return SizedBox(
-            width: _calulateWidth(screen, box.maxWidth, s, m, l),
-            child: child,
-          );
-        });
-      }).toList(),
-    );
+                return w == 0
+                    ? SizedBox(
+                        width: 0,
+                        height: 0,
+                      )
+                    : SizedBox(
+                        width: w,
+                        child: Row(
+                          mainAxisSize: MainAxisSize.max,
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: <Widget>[
+                            SizedBox(
+                                width: _calulateWidth(screen, box.maxWidth,
+                                    c.colS ?? s, c.colM ?? m, c.colL ?? l),
+                                child: child),
+                          ],
+                        ),
+                      );
+              }
+              double w = _calulateWidth(screen, box.maxWidth, s, m, l);
+              return w == 0
+                  ? SizedBox(
+                      width: 0,
+                      height: 0,
+                    )
+                  : SizedBox(
+                      width: w,
+                      child: child,
+                    );
+            });
+          }).toList(),
+        ));
   }
 
   double _calulateWidth(
@@ -209,6 +239,7 @@ class ResponsiveRow extends StatelessWidget {
     } else {
       width = (maxWidth / 12) * _colL;
     }
+
     return width;
   }
 }
