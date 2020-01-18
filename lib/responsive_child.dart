@@ -1,33 +1,39 @@
 import 'package:flutter/material.dart';
 
-class ResponsiveColumn extends StatelessWidget {
+class ResponsiveChild extends StatelessWidget {
   final Widget child;
 
+  /// Small screen
+  ///
   /// input range [0 -12]
   ///
   /// `0` ~ 0.0 width / gone
-  ///
+  ///i
   /// `12` ~ full width
   ///
-  /// `null` ~ takes [defaultColS] value from `ResponsiveRow` Widget
+  /// `null` ~ takes [defaultColS] value from `Responsive()` Widget
   final int colS;
 
+  /// Medium screen
+  ///
   /// input range [0 -12]
   ///
   /// `0` ~ 0.0 width / gone
   ///
   /// `12` ~ full width
   ///
-  /// `null` ~ takes [defaultColM] value from `ResponsiveRow` Widget
+  /// `null` ~ takes [defaultColM] value from `Responsive()` Widget
   final int colM;
 
+  /// Large screen
+  ///
   /// input range [0 -12]
   ///
   /// `0` ~ 0.0 width / gone
   ///
   /// `12` ~ full width
   ///
-  /// `null` ~ takes [defaultColL] value from `ResponsiveRow` Widget
+  /// `null` ~ takes [defaultColL] value from `Responsive()` Widget
   final int colL;
 
   final int offsetS;
@@ -36,30 +42,28 @@ class ResponsiveColumn extends StatelessWidget {
 
   final int offsetL;
 
-  /// ### This Widget works only as direct children of `ResponsiveRow` Widget
+  /// ### This Widget works only as direct children of `Responsive()` Widget
   ///
   /// [Ex]
   /// ```dart
-  ///   ResponsiveRow(        // Parent ResponsiveRow Widget
+  ///   Responsive(        // Parent Responsive Widget
   ///     children:[
-  ///       ResponsiveColumn( // Direct child of ResponsiveRow (works as mentioned col values)
+  ///       ResponsiveChild(
   ///         colS : 12,
   ///         colm : 6,
   ///         colS : 4,
   ///         child : Container(),
   ///       ),
-  ///       Container(
-  ///         child : ResponsiveColumn( // not a Direct child of ResponsiveRow (so it doesn't works)
+  ///       ResponsiveChild(
   ///           colS : 12,
   ///           colm : 6,
   ///           colS : 4,
   ///           child : Container(),
-  ///         ),
   ///       ),
   ///     ],
   ///   )
   /// ```
-  const ResponsiveColumn(
+  const ResponsiveChild(
       {this.colS,
       this.colM,
       this.colL,

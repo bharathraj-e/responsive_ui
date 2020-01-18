@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 
-import 'responsive_column.dart';
+import 'responsive_child.dart';
 
 enum _Screen { SMALL, MEDIUM, LARGE }
 
-class ResponsiveRow extends StatelessWidget {
+class Responsive extends StatelessWidget {
   ///
   /// Create an Responsive Widget.
   ///
-  /// ## ResponsiveRow's grid system allows up to 12 columns across the page (like Bootstrap, Materialize css grid system)
+  /// ## Responsive's grid system allows up to 12 columns across the page (like Bootstrap, Materialize css grid system)
   ///
   /// `defaultColS` ~ [0 - 12] (for phones - screens <= 600px wide) default `12`
   ///
@@ -18,61 +18,44 @@ class ResponsiveRow extends StatelessWidget {
   ///
   /// (0 - 0.0 px width (gone / no visibility))
   ///
-  /// This default column size applies to all children widget.
+  /// This default column size applies to all ResponsiveChild() widget.
   ///
-  /// ### To use individual column size for a widget try `ResponsiveColumn()` widget
+  /// ### Individual column size for a ResponsiveChild() can be mentioned
   ///
-  /// `children` takes [List<Widget>] or [List<ResponsiveColumn>]
+  /// `children` takes  [List<ResponsiveChild>]
   ///
   /// ```dart
-  ///  ResponsiveColumn(
+  ///  ResponsiveChild(
   ///     colS: 12 // 0 - 12 if `null` takes defaultColS
   ///     colM: 6, // 0 - 12 if `null` takes defaultColM
   ///     colL: 4, // 0 - 12 if `null` takes defaultColL
   ///     child: Container(),
   ///   )
   /// ```
-  /// `ResponsiveColumn()` column sizes overrides the defaultCol sizes of `ResponsiveRow()` widget
+  /// `ResponsiveChild()` column sizes overrides the defaultCol sizes of `Responsive()` widget
   ///
   /// [Example]
   /// ```dart
-  ///   ResponsiveRow(
+  ///   Responsive(
   ///      defaultColS: 12,
   ///      defaultColM: 6,
   ///      defaultColL: 3,
   ///      children: <Widget>[
-  ///
-  ///        Container(),
-  ///
-  ///        ResponsiveColumn(
+  ///        ResponsiveChild( // overrides defaultCol values
   ///          colS: 12,
   ///          colM: 8,
   ///          colL: 4,
   ///          child: Container(),
   ///        ),
-  ///
-  ///        Container(),
-  ///
-  ///        ResponsiveColumn(              // nested `ResponsiveColumn` takes a width allocated by its parent ResponsiveRow
-  ///          defaultColM: 6,
-  ///          defaultColL: 3,
-  ///          children: <Widget>[
-  ///            Container(),
-  ///            ResponsiveColumn(
-  ///              colS: 12,
-  ///              colM: 8,
-  ///              colL: 4,
-  ///              child: Container(),
-  ///            ),
-  ///          ],
-  ///        )
-  ///
+  ///        ResponsiveChild( // takes defaultCol values
+  ///          child: Container(),
+  ///        ),
   ///     ],
   ///   )
   ///
   /// ```
 
-  ResponsiveRow({
+  Responsive({
     @required this.children,
     this.defaultColS = 12,
     this.defaultColM,
@@ -87,8 +70,8 @@ class ResponsiveRow extends StatelessWidget {
         assert(defaultColM == null || (defaultColM >= 0 && defaultColM <= 12)),
         assert(defaultColL == null || (defaultColL >= 0 && defaultColL <= 12));
 
-  /// List<Widget> || List<ResponsiveColumn>
-  final List<Widget> children;
+  /// List<ResponsiveChild> children : [ResponsiveChild(),ResponsiveChild(),..]
+  final List<ResponsiveChild> children;
 
   /// input range [0 -12]
   ///
@@ -179,42 +162,19 @@ class ResponsiveRow extends StatelessWidget {
           runSpacing: runSpacing,
           runAlignment: runAlignment,
           crossAxisAlignment: crossAxisAlignment,
-          children: children.map((child) {
+          children: children.map((c) {
             return LayoutBuilder(builder: (ctx, box) {
-              if (child is ResponsiveColumn) {
-                ResponsiveColumn c = child;
+              int kS = (c.offsetS + (c.colS ?? defaultColS) >= 12)
+                  ? 12
+                  : c.offsetS + (c.colS ?? defaultColS);
+              int kM = (c.offsetM + (c.colM ?? defaultColM) >= 12)
+                  ? 12
+                  : c.offsetM + (c.colM ?? defaultColM);
+              int kL = (c.offsetL + (c.colL ?? defaultColL) >= 12)
+                  ? 12
+                  : c.offsetL + (c.colL ?? defaultColL);
+              double w = _calulateWidth(screen, box.maxWidth, kS, kM, kL);
 
-                int kS = (c.offsetS + (c.colS ?? defaultColS) >= 12)
-                    ? 12
-                    : c.offsetS + (c.colS ?? defaultColS);
-                int kM = (c.offsetM + (c.colM ?? defaultColM) >= 12)
-                    ? 12
-                    : c.offsetM + (c.colM ?? defaultColM);
-                int kL = (c.offsetL + (c.colL ?? defaultColL) >= 12)
-                    ? 12
-                    : c.offsetL + (c.colL ?? defaultColL);
-                double w = _calulateWidth(screen, box.maxWidth, kS, kM, kL);
-
-                return w == 0
-                    ? SizedBox(
-                        width: 0,
-                        height: 0,
-                      )
-                    : SizedBox(
-                        width: w,
-                        child: Row(
-                          mainAxisSize: MainAxisSize.max,
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          children: <Widget>[
-                            SizedBox(
-                                width: _calulateWidth(screen, box.maxWidth,
-                                    c.colS ?? s, c.colM ?? m, c.colL ?? l),
-                                child: child),
-                          ],
-                        ),
-                      );
-              }
-              double w = _calulateWidth(screen, box.maxWidth, s, m, l);
               return w == 0
                   ? SizedBox(
                       width: 0,
@@ -222,7 +182,16 @@ class ResponsiveRow extends StatelessWidget {
                     )
                   : SizedBox(
                       width: w,
-                      child: child,
+                      child: Row(
+                        mainAxisSize: MainAxisSize.max,
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: <Widget>[
+                          SizedBox(
+                              width: _calulateWidth(screen, box.maxWidth,
+                                  c.colS ?? s, c.colM ?? m, c.colL ?? l),
+                              child: c),
+                        ],
+                      ),
                     );
             });
           }).toList(),
@@ -231,15 +200,10 @@ class ResponsiveRow extends StatelessWidget {
 
   double _calulateWidth(
       _Screen screen, double maxWidth, int _colS, int _colM, int _colL) {
-    double width = maxWidth;
-    if (screen == _Screen.SMALL) {
-      width = (maxWidth / 12) * _colS;
-    } else if (screen == _Screen.MEDIUM) {
-      width = (maxWidth / 12) * _colM;
-    } else {
-      width = (maxWidth / 12) * _colL;
-    }
-
-    return width;
+    return screen == _Screen.SMALL
+        ? (maxWidth / 12) * _colS
+        : screen == _Screen.MEDIUM
+            ? (maxWidth / 12) * _colM
+            : (maxWidth / 12) * _colL;
   }
 }

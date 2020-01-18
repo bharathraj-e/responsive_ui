@@ -1,5 +1,12 @@
 ## [1.1.0] - 2020-01-15
 
+* ResponsiveRow() changed back to Responsive() 
+* ResponsiveColumn() changed to  ResponsiveChild() 
+* Added offset
+* Added a sample video link
+
+## [1.1.0] - 2020-01-15
+
 * Responsive() changed to ResponsiveRow() 
 * Col() changed to ResponsiveColumn() 
 * readme && images updated

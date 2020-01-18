@@ -36,35 +36,41 @@ It works as same as Bootstrap Row Column method, Splitting screen into 12 column
 
 The Responsive UI Package contains two simple widgets.
 
-1. ResponsiveRow()
-2. ResponsiveColumn()
+1. Responsive() 
+2. ResponsiveChild() 
 
-## 1. ResponsiveRow()
+ (s = small, m = medium, l = large) 
 
-ResponsiveRow intakes List\<Widget> || List\<ResponsiveColumn> with default column/screen size for each widget can be declared.
+## 1. Responsive()
+
+Responsive intakes `List<ResponsiveChild>` with default column/screen size for each widget can be declared.
 
 ```dart
-    ResponsiveRow(
+    Responsive(
         defaultColS : 12,//default column size for Small screen 12
         defaultColM : 6, //default column size for Medium screen 12
         defaultColL : 4, //default column size for Large screen 12
         children:<Widget>[
-            Container(
-                color: Colors.amber,
-                alignment: Alignment.center,
-                child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Text('child 1'),
-                ),
-            ),
-            Container(
-                color: Colors.blue,
-                alignment: Alignment.center,
-                child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Text('child 2'),
-                ),
-            ),
+          ResponsiveChild(
+            child:Container(
+                    color: Colors.amber,
+                    alignment: Alignment.center,
+                    child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text('child 1'),
+                    ),
+                  ),
+          ),
+          ResponsiveChild(
+            child:Container(
+                    color: Colors.blue,
+                    alignment: Alignment.center,
+                    child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text('child 2'),
+                    ),
+                  ),
+          ),
         ]
     )    
 ```
@@ -75,31 +81,39 @@ ResponsiveRow intakes List\<Widget> || List\<ResponsiveColumn> with default colu
 
  12 - full width (provided by parent widget not screen width) 
 
-## 2. ResponsiveColumn()
+## 2. ResponsiveChild()
 
-To Override the `defaultCol` size use ResponsiveColumn() as a widget in ResponsiveRow().
+To Override the `defaultCol` size use ResponsiveChild() `col` value.
 
-ResponsiveColumn() intakes child & column sizes.
+ResponsiveChild() intakes child & column sizes.
 
+### Offset
 
-## Lite Example
+To offset, simply add `offsetS` /`offsetM` /`offsetL` to the ResponsiveChild() widget with respective size.
+
+### Lite Example
 
 ```dart
-    ResponsiveRow(
+    Responsive(
         defaultColS : 12, //defaults to 12
         defaultColM : 6, //defaults to 12
         defaultColL : 4, //defaults to 12
         children:<Widget>[
-          Container(
-            color: Colors.amber,
-            alignment: Alignment.center,
-            child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Text('child 1'),
+          ResponsiveChild(           
+            colS: 10,  // colS & ColL override the defaultCol size
+            colL: 3,
+            offsetS :2 // added offset 
+            child:  Container(
+              color: Colors.amber,
+              alignment: Alignment.center,
+              child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text('child 1'),
+              ),
             ),
           ),
-          ResponsiveColumn(           // as colM not mentioned, it takes the defaulColM size
-            colS: 10,  // colS & ColL override the defaultCol size
+          ResponsiveChild(           // as colM not mentioned, it takes the defaulColM size
+            colS: 10, 
             colL: 3,
             child: Container(
             alignment: Alignment.center,
@@ -110,26 +124,17 @@ ResponsiveColumn() intakes child & column sizes.
                 ),
             ),
           ),
-          Container(
-            color: Colors.blue,
-            alignment: Alignment.center,
-            child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Text('child 3'),
-            ),
-          ),
         ]
     )    
 
 ```
-###  **ResponsiveColumn() works only as direct child of Responsive() widget**
+###  **ResponsiveChild() works only as direct child of Responsive() widget**
 
 ## Nested Responsive
 
-Placing a ResponsiveRow() widget into a ResponsiveRow().
+Placing a Responsive() widget into a Responsive().
 
-The child ResponsiveRow() widget takes a width provided by Parent ResponsiveRow() widget and **not the screen width**
-
+The child Responsive() widget takes a width provided by Parent Responsive() widget and **not the screen width**
 
 
 
@@ -138,11 +143,11 @@ The child ResponsiveRow() widget takes a width provided by Parent ResponsiveRow(
 <img src='https://raw.githubusercontent.com/bharathraj-e/responsive_ui/master/pics/out.gif' width='90%' >
 
 ```dart
-class FullExample extends StatelessWidget {
-
+class ResponsiveExample extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        backgroundColor: Colors.grey[350],
         appBar: AppBar(
           title: Text('Responsive Example'),
           centerTitle: true,
@@ -154,143 +159,167 @@ class FullExample extends StatelessWidget {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
-              ResponsiveRow(
-                defaultColS: 12,
-                defaultColM: 6,
-                defaultColL: 3,
-                children: <Widget>[
-                  Container(
-                    color: Colors.amber,
-                    alignment: Alignment.center,
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Text('child 1'),
-                    ),
-                  ),
-                  Container(
-                    color: Colors.blue,
-                    alignment: Alignment.center,
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Text('child 2'),
-                    ),
-                  ),
-                  Container(
-                    color: Colors.grey,
-                    alignment: Alignment.center,
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Text('child 3'),
-                    ),
-                  ),
-                  Container(
-                      padding: EdgeInsets.all(10),
-                      color: Colors.orangeAccent,
-                      alignment: Alignment.center,
-                      child: Column(
-                        children: <Widget>[
-                          ResponsiveRow(                            // nested Responsive widget
-                            defaultColS: 4,
-                            defaultColM: 4,
-                            defaultColL: 4,
-                            children: <Widget>[
-                              Container(
-                                color: Colors.white,
-                                alignment: Alignment.center,
-                                child: Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Text('Nested child 1'),
-                                ),
-                              ),
-                              Container(
-                                color: Colors.lime,
-                                alignment: Alignment.center,
-                                child: Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Text('Nested child 2'),
-                                ),
-                              ),
-                              Container(
-                                color: Colors.indigo,
-                                alignment: Alignment.center,
-                                child: Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Text('Nested child 3'),
-                                ),
-                              ),
-                              ResponsiveColumn(
-                                colS: 12,
-                                colM: 12,
-                                colL: 12,
-                                child: Container(
-                                  alignment: Alignment.center,
-                                  color: Colors.redAccent,
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: Text('Nested ResponsiveColumn'),
-                                  ),
-                                ),
-                              )
-                            ],
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Text('child 4 ~ Nested Responsive Widget'),
-                          )
-                        ],
-                      )),
-                  ResponsiveColumn(
-                    colL: 6,
-                    colS: 6,
-                    colM: 6,
-                    child: Container(
-                      color: Colors.cyan,
-                      alignment: Alignment.center,
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Text('Col 1'),
+              Responsive(
+                  defaultColS: 12,
+                  defaultColM: 6,
+                  defaultColL: 3,
+                  children: <ResponsiveChild>[
+                    ResponsiveChild(
+                      child: Card(
+                        color: Colors.amber,
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Text('S12 M6 L3'),
+                        ),
                       ),
                     ),
-                  ),
-                  ResponsiveColumn(
-                    colL: 6,
-                    colS: 6,
-                    colM: 6,
-                    child: Container(
-                      color: Colors.cyanAccent,
-                      alignment: Alignment.center,
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Text('Col 2'),
+                    ResponsiveChild(
+                      child: Card(
+                        color: Colors.blue,
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Text('S12 M6 L3'),
+                        ),
                       ),
                     ),
-                  ),
-                  Container(
-                    color: Colors.green,
-                    alignment: Alignment.center,
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Text('child 5'),
+                    ResponsiveChild(
+                      child: Card(
+                        color: Colors.grey,
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Text('S12 M6 L3'),
+                        ),
+                      ),
                     ),
-                  ),
-                  Container(
-                    color: Colors.deepPurple,
-                    alignment: Alignment.center,
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Text('child 6'),
+                    ResponsiveChild(
+                      child: Card(
+                        child: Container(
+                            padding: EdgeInsets.all(10),
+                            color: Colors.orangeAccent,
+                            child: Column(
+                              children: <Widget>[
+                                Responsive(
+                                  // nested Col12 widget
+                                  defaultColS: 4,
+                                  defaultColM: 4,
+                                  defaultColL: 4,
+                                  children: <ResponsiveChild>[
+                                    ResponsiveChild(
+                                      child: Card(
+                                        color: Colors.white,
+                                        child: Padding(
+                                          padding: const EdgeInsets.all(8.0),
+                                          child: Text('S4 M4 L4 Nested'),
+                                        ),
+                                      ),
+                                    ),
+                                    ResponsiveChild(
+                                      child: Card(
+                                        color: Colors.lime,
+                                        child: Padding(
+                                          padding: const EdgeInsets.all(8.0),
+                                          child: Text('S4 M4 L4 Nested'),
+                                        ),
+                                      ),
+                                    ),
+                                    ResponsiveChild(
+                                      child: Card(
+                                        color: Colors.indigo,
+                                        child: Padding(
+                                          padding: const EdgeInsets.all(8.0),
+                                          child: Text('S4 M4 L4 Nested'),
+                                        ),
+                                      ),
+                                    ),
+                                    ResponsiveChild(
+                                      colS: 12,
+                                      colM: 12,
+                                      colL: 12,
+                                      child: Card(
+                                        color: Colors.redAccent,
+                                        child: Padding(
+                                          padding: const EdgeInsets.all(8.0),
+                                          child: Text('S12 M7 L12 Nested'),
+                                        ),
+                                      ),
+                                    )
+                                  ],
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child:
+                                      Text('S12 M6 L3 (Nested Responsive Row)'),
+                                )
+                              ],
+                            )),
+                      ),
                     ),
-                  ),
-                ]),
+                    ResponsiveChild(
+                      colL: 4,
+                      colS: 2,
+                      colM: 5,
+                      offsetS: 4,
+                      offsetM: 1,
+                      offsetL: 2,
+                      child: Card(
+                        color: Colors.cyan,
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Text('S2 M5 L4 \noffset S4 M1 L2 '),
+                        ),
+                      ),
+                    ),
+                    ResponsiveChild(
+                      colL: 2,
+                      colS: 2,
+                      colM: 2,
+                      child: Card(
+                        color: Colors.deepPurpleAccent,
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Text('S2 M2 L2'),
+                        ),
+                      ),
+                    ),
+                    ResponsiveChild(
+                      colL: 4,
+                      colS: 4,
+                      colM: 4,
+                      child: Card(
+                        color: Colors.cyanAccent,
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Text('S4 M4 L4'),
+                        ),
+                      ),
+                    ),
+                    ResponsiveChild(
+                      child: Card(
+                        color: Colors.green,
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Text('S12 M6 L3'),
+                        ),
+                      ),
+                    ),
+                    ResponsiveChild(
+                      child: Card(
+                        color: Colors.deepPurple,
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Text('S12 M6 L3'),
+                        ),
+                      ),
+                    ),
+                  ]),
               Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: Text('Responsive Widget'),
+                child: Text('Responsive'),
               )
             ],
           ),
-        ),
-    );
+        ));
   }
 }
 ```
-**responsive_ui** is made simply using Wrap() and LayoutBuilder() widgets
+**responsive_ui** is made simply using Wrap() and LayoutBuilder() with a bits of logics.
