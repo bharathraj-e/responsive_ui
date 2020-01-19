@@ -8,29 +8,21 @@
 
 [https://youtu.be/2koIFANjJZg](https://youtu.be/2koIFANjJZg)
 
-[![Watch the video](https://img.youtube.com/vi/2koIFANjJZg/maxresdefault.jpg)](https://youtu.be/2koIFANjJZg)
+[<img src='https://img.youtube.com/vi/2koIFANjJZg/maxresdefault.jpg' width='50%'>](https://youtu.be/2koIFANjJZg)
 
 ## Getting Started
 
 It works as same as Bootstrap Row Column method, Splitting screen into 12 columns and placing widget by combining column based on screen size.
 
-
-# Screens
+## Screens
 
 ### **For mobiles ( screen size <= 600px wide )**
 
-<img src="https://raw.githubusercontent.com/bharathraj-e/responsive_ui/master/pics/mobile.png" width="50%">
-
 ### **For tablets ( screen size > 600px wide && <= 990 px wide )**
-
-<img src="https://raw.githubusercontent.com/bharathraj-e/responsive_ui/master/pics/tab.png" width="75%">
-
 
 ### **For laptops ( screen size > 990px wide )**
 
-<img src="https://raw.githubusercontent.com/bharathraj-e/responsive_ui/master/pics/lap.png" width="100%">
-
-
+### (S = small, M = medium, L = large) 
 
 # Widgets
 
@@ -39,45 +31,23 @@ The Responsive UI Package contains two simple widgets.
 1. Responsive() 
 2. ResponsiveChild() 
 
- (s = small, m = medium, l = large) 
-
 ## 1. Responsive()
 
 Responsive intakes `List<ResponsiveChild>` with default column/screen size for each widget can be declared.
 
-```dart
-    Responsive(
-        defaultColS : 12,//default column size for Small screen 12
-        defaultColM : 6, //default column size for Medium screen 12
-        defaultColL : 4, //default column size for Large screen 12
-        children:<Widget>[
-          ResponsiveChild(
-            child:Container(
-                    color: Colors.amber,
-                    alignment: Alignment.center,
-                    child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Text('child 1'),
-                    ),
-                  ),
-          ),
-          ResponsiveChild(
-            child:Container(
-                    color: Colors.blue,
-                    alignment: Alignment.center,
-                    child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Text('child 2'),
-                    ),
-                  ),
-          ),
-        ]
-    )    
-```
+| Arguments            | inputs                  | if null                       |
+|----------------------|-------------------------|-------------------------------|
+| `defaultColS`        | (int) 0-12              | 12                            |
+| `defaultColL`        | (int) 0-12              | `defaultColM` value           |
+| `defaultColM`        | (int) 0-12              | `defaultColS` value           |
+| `children`           | List[ResponsiveChild()] | not null / required / empty[] |
+| `alignment`          | WrapAlignment           | WrapAlignment.start           |
+| `runAlignment`       | WrapAlignment           | WrapAlignment.start           |
+| `crossAxisAlignment` | WrapCrossAlignment      | WrapCrossAlignment.start      |
+| `runSpacing`         | double                  | 0.0                           |
 
- `defaultColS`, `defaultColM`, `defaultColL` default to  `12` & various from [0-12] 
 
- 0 - 0.0 width (gone)
+ 0 - 0.0 width (gone) (replaced with empty SizedBox() of width,height as 0.0)
 
  12 - full width (provided by parent widget not screen width) 
 
@@ -87,9 +57,23 @@ To Override the `defaultCol` size use ResponsiveChild() `col` value.
 
 ResponsiveChild() intakes child & column sizes.
 
+| Arguments | inputs     | if null             |
+|-----------|------------|---------------------|
+| `colS`    | (int) 0-12 | `defaultColS` value |
+| `colM`    | (int) 0-12 | `defaultColM` value |
+| `colL`    | (int) 0-12 | `defaultColL` value |
+| `child`   | Widget     | not null / required |
+| `offsetS` | (int) 0-12 | 0                   |
+| `offsetM` | (int) 0-12 | 0                   |
+| `offsetL` | (int) 0-12 | 0                   |
+
+
+
 ### Offset
 
-To offset, simply add `offsetS` /`offsetM` /`offsetL` to the ResponsiveChild() widget with respective size.
+- To offset, simply add `offsetS` /`offsetM` /`offsetL` to the ResponsiveChild() widget with respective size.
+- if `offset`  is not null , then the respective `col` shouldn't be null
+- sum of the `offset` and the respective `col` should be <= to `12`
 
 ### Lite Example
 
@@ -112,7 +96,7 @@ To offset, simply add `offsetS` /`offsetM` /`offsetL` to the ResponsiveChild() w
               ),
             ),
           ),
-          ResponsiveChild(           // as colM not mentioned, it takes the defaulColM size
+          ResponsiveChild( // as colM not mentioned, it takes the defaulColM size
             colS: 10, 
             colL: 3,
             child: Container(
@@ -120,7 +104,7 @@ To offset, simply add `offsetS` /`offsetM` /`offsetL` to the ResponsiveChild() w
             color: Colors.redAccent,
                 child: Padding(
                     padding: const EdgeInsets.all(8.0),
-                    child: Text('Column Child'),
+                    child: Text('Child 2'),
                 ),
             ),
           ),
@@ -128,7 +112,10 @@ To offset, simply add `offsetS` /`offsetM` /`offsetL` to the ResponsiveChild() w
     )    
 
 ```
-###  **ResponsiveChild() works only as direct child of Responsive() widget**
+
+## Note 
+- `ResponsiveChild()` works only as direct child of `Responsive()` widget
+- Sum of the `offset` and the respective `col` should be <= to `12`
 
 ## Nested Responsive
 
@@ -136,11 +123,13 @@ Placing a Responsive() widget into a Responsive().
 
 The child Responsive() widget takes a width provided by Parent Responsive() widget and **not the screen width**
 
+# Screens
 
+<img src="https://raw.githubusercontent.com/bharathraj-e/responsive_ui/master/pics/c1.png" width="100%">
 
-## Complete Example
+<img src="https://raw.githubusercontent.com/bharathraj-e/responsive_ui/master/pics/lap.png" width="100%">
 
-<img src='https://raw.githubusercontent.com/bharathraj-e/responsive_ui/master/pics/out.gif' width='90%' >
+<img src='https://raw.githubusercontent.com/bharathraj-e/responsive_ui/master/pics/out.gif' width='100%' >
 
 ```dart
 class ResponsiveExample extends StatelessWidget {
