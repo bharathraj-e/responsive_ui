@@ -1,4 +1,4 @@
-## [1.1.0] - 2020-01-15
+## [1.1.0+1] - 2020-01-18
 
 * ResponsiveRow() changed back to Responsive() 
 * ResponsiveColumn() changed to  ResponsiveChild() 
