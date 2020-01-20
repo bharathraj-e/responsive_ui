@@ -82,7 +82,7 @@ ResponsiveChild() intakes child & column sizes.
         defaultColS : 12, //defaults to 12
         defaultColM : 6, //defaults to 12
         defaultColL : 4, //defaults to 12
-        children:<Widget>[
+        children:<ResponsiveChild>[
           ResponsiveChild(           
             colS: 10,  // colS & ColL override the defaultCol size
             colL: 3,
