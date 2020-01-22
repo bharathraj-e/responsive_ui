@@ -164,15 +164,15 @@ class Responsive extends StatelessWidget {
           crossAxisAlignment: crossAxisAlignment,
           children: children.map((c) {
             return LayoutBuilder(builder: (ctx, box) {
-              int kS = (c.offsetS + (c.colS ?? defaultColS) >= 12)
+              int kS = (c.offsetS + (c.colS ?? s) >= 12)
                   ? 12
-                  : c.offsetS + (c.colS ?? defaultColS);
-              int kM = (c.offsetM + (c.colM ?? defaultColM) >= 12)
+                  : c.offsetS + (c.colS ?? s);
+              int kM = (c.offsetM + (c.colM ?? m) >= 12)
                   ? 12
-                  : c.offsetM + (c.colM ?? defaultColM);
-              int kL = (c.offsetL + (c.colL ?? defaultColL) >= 12)
+                  : c.offsetM + (c.colM ?? m);
+              int kL = (c.offsetL + (c.colL ?? l) >= 12)
                   ? 12
-                  : c.offsetL + (c.colL ?? defaultColL);
+                  : c.offsetL + (c.colL ?? l);
               double w = _calulateWidth(screen, box.maxWidth, kS, kM, kL);
 
               return w == 0

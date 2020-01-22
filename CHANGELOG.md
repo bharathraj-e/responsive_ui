@@ -1,3 +1,8 @@
+## [1.1.0+2] - 2020-01-21
+
+* Bug fixes. 
+* Uodated Readme 
+
 ## [1.1.0+1] - 2020-01-18
 
 * ResponsiveRow() changed back to Responsive() 
