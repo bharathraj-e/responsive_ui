@@ -9,13 +9,46 @@
 
 It works as same as Bootstrap / Materialize Row Column method, Splitting screen into 12 columns and placing widget by combining column based on screen size.
 
-## Screens
 
- - **For mobiles ( screen size <= 600px wide )**
 
- - **For tablets ( screen size > 600px wide - 990 px wide )**
+```dart
+    Responsive(
+        children: <Widget>[
+            Div(
+                colS: 5,
+                offsetL: 2,
+                child: Card(child: Icon(Icons.game))
+            ),
+            Div(
+                colS: 12,
+                colM: 6,
+                colL: 4,
+                child: Text('responsive ui')
+            )          
+        ]
+    )
+```
 
- - **For laptops ( screen size > 990px wide )**
+
+<details><summary>WEB EXAMPLE</summary>
+<p>
+
+### [https://bharathraj-e.github.io/responsive_ui_example/](https://bharathraj-e.github.io/responsive_ui_example/) Have a look!
+
+</p>
+</details>
+
+<details><summary>SCREENS</summary>
+<p>
+
+ - colS | mobiles ( <= 600px )
+
+ - colM | tablets ( 600px - 990px )
+
+ - colL | laptops ( > 990px )
+</p>
+</details>
+
 
 # Widgets
 
@@ -28,6 +61,9 @@ The Responsive UI Package contains two simple widgets.
 ## 1. Div()
 
 Div() intakes child & column sizes.
+
+<details><summary>Arguments</summary>
+<p>
 
 | Arguments | inputs     | if null / default to |
 |-----------|------------|----------------------|
@@ -48,15 +84,17 @@ Div() intakes child & column sizes.
 
 - `Parent widget` should not be a `horizontal scroll` type widget
 
-### Offset (for creating blank space before the Div())
-
 - To offset, simply add `offsetS` / `offsetM` / `offsetL` to the Div() widget with `colS` / `colM` / `colL` respectively.
-- if `offset`  is not null , then the respective `col` shouldn't be null
-- sum of the `offset` and the respective `col` should be <= to `12`
+
+</p>
+</details>
 
 ## 2. Responsive()
 
 Responsive intakes `List<Widget>` or `List<Div>` with default column/screen size for each widget can be declared.
+
+<details><summary>Arguments</summary>
+<p>
 
 | Arguments            | inputs                   | if null / default             |
 |----------------------|--------------------------|-------------------------------|
@@ -66,29 +104,9 @@ Responsive intakes `List<Widget>` or `List<Div>` with default column/screen size
 | `crossAxisAlignment` | WrapCrossAlignment       | WrapCrossAlignment.start      |
 | `runSpacing`         | double                   | 0.0                           |
 
-### Lite Example
+</p>
+</details>
 
-```dart
-    Responsive(
-        children: <Widget>[
-            Div(
-                colS: 5,
-                offsetL: 2,
-                child: Card(child: Icon(Icons.game))
-            ),
-            Div(
-                colS: 12,
-                colM: 6,
-                colL: 4,
-                child: Text('responsive ui')
-            )          
-        ]
-    )
-```
-
-## Flutter Web Sample
-
-### [https://bharathraj-e.github.io/responsive_ui_example/](https://bharathraj-e.github.io/responsive_ui_example/) Have a look!
 
 # Note 
 - `Div()` works with `vertical scroll` not in` horizontal scroll`, as it calculations are base on width only.
@@ -97,11 +115,15 @@ Responsive intakes `List<Widget>` or `List<Div>` with default column/screen size
 
 - Sum of the `offset` and the respective `col` should be <= to `12`
 
-## Nested Responsive
+<details><summary>NESTED RESPONSIVE</summary>
+<p>
 
 Placing a `Responsive()` widget into a `Div()`.
 
 The nested `Responsive()` widget takes the width provided by parent `Div()` widget and **not the screen width**
+
+</p>
+</details>
 
 ## sample 
 

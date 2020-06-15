@@ -1,4 +1,4 @@
 library responsive_ui;
 
-export './src/_div.dart';
-export './src/_responsive.dart';
+export './src/div.dart';
+export './src/responsive.dart';

@@ -1,9 +1,13 @@
+## [2.0.0] - 2020-06-15
+* Updated Readme 
+* Updated Example 
+
 ## [2.0.0] - 2020-05-04
 
 * Used Div() as a replace for ResponsiveChild()
 * removed responsive defaults
 * Div() also works without Responsive() 
-* Uodated Readme 
+* Updated Readme 
 
 ## [1.1.0+2] - 2020-01-21
 

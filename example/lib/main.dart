@@ -1,5 +1,6 @@
 import 'dart:html' as html;
 import 'package:flutter/material.dart';
+import 'package:random_color/random_color.dart';
 import 'package:responsive_ui/responsive_ui.dart';
 
 void main() {
@@ -22,11 +23,11 @@ class MyApp extends StatelessWidget {
 }
 
 class RespoEx extends StatelessWidget {
-  final GlobalKey<ScaffoldState> key = GlobalKey<ScaffoldState>();
+  final GlobalKey<ScaffoldState> sKey = GlobalKey<ScaffoldState>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      key: key,
+      key: sKey,
       appBar: AppBar(
         title: Text('Responsive UI Example'),
         centerTitle: true,
@@ -34,7 +35,7 @@ class RespoEx extends StatelessWidget {
           IconButton(
               icon: Icon(Icons.info),
               onPressed: () {
-                key.currentState.showSnackBar(SnackBar(
+                sKey.currentState.showSnackBar(SnackBar(
                     content: Text(
                   'colS, colM and colL works only on small, medium and large screens respectively',
                   textAlign: TextAlign.center,
@@ -52,7 +53,7 @@ class RespoEx extends StatelessWidget {
         child: Responsive(
             crossAxisAlignment: WrapCrossAlignment.center,
             runSpacing: 10,
-            children: List.generate(10, (i) {
+            children: List.generate(20, (i) {
               if (i == 5) {
                 return Div(
                     colS: 5,
@@ -92,29 +93,12 @@ class GenerateWidget extends StatefulWidget {
 }
 
 class _GenerateWidgetState extends State<GenerateWidget> {
+  RandomColor _randomColor = RandomColor();
   int colS = 4;
   int colM = 4;
   int colL = 4;
   @override
   Widget build(BuildContext context) {
-    var sliderTheme = SliderTheme.of(context).copyWith(
-      activeTrackColor: Colors.red[700],
-      inactiveTrackColor: Colors.red[100],
-      trackShape: RoundedRectSliderTrackShape(),
-      trackHeight: 4.0,
-      thumbShape: RoundSliderThumbShape(enabledThumbRadius: 12.0),
-      thumbColor: Colors.redAccent,
-      overlayColor: Colors.red.withAlpha(32),
-      overlayShape: RoundSliderOverlayShape(overlayRadius: 28.0),
-      tickMarkShape: RoundSliderTickMarkShape(),
-      activeTickMarkColor: Colors.red[700],
-      inactiveTickMarkColor: Colors.red[100],
-      valueIndicatorShape: PaddleSliderValueIndicatorShape(),
-      valueIndicatorColor: Colors.redAccent,
-      valueIndicatorTextStyle: TextStyle(
-        color: Colors.white,
-      ),
-    );
     return Div(
       colS: colS,
       colM: colM,
@@ -122,6 +106,8 @@ class _GenerateWidgetState extends State<GenerateWidget> {
       child: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Card(
+          color:
+              _randomColor.randomColor(colorBrightness: ColorBrightness.light),
           child: Column(
             children: <Widget>[
               Padding(
@@ -135,60 +121,50 @@ class _GenerateWidgetState extends State<GenerateWidget> {
                 padding: const EdgeInsets.all(8.0),
                 child: Center(child: Text('ColS : $colS')),
               ),
-              SliderTheme(
-                data: sliderTheme,
-                child: Slider(
-                  min: 1,
-                  max: 12,
-                  divisions: 12,
-                  value: colS * 1.0,
-                  onChanged: (value) {},
-                  onChangeEnd: (value) {
-                    setState(() {
-                      colS = value.toInt();
-                    });
-                  },
-                ),
+              Slider.adaptive(
+                min: 1,
+                max: 12,
+                divisions: 12,
+                value: colS * 1.0,
+                onChanged: (value) {
+                  setState(() {
+                    colS = value.toInt();
+                  });
+                },
               ),
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Center(child: Text('ColM : $colM')),
               ),
-              SliderTheme(
-                data: sliderTheme,
-                child: Slider(
-                  min: 1,
-                  max: 12,
-                  divisions: 12,
-                  value: colM * 1.0,
-                  onChangeEnd: (value) {
-                    setState(() {
-                      colM = value.toInt();
-                    });
-                  },
-                  onChanged: (value) {},
-                ),
+              Slider(
+                min: 1,
+                max: 12,
+                divisions: 12,
+                value: colM * 1.0,
+                onChangeEnd: (value) {
+                  setState(() {
+                    colM = value.toInt();
+                  });
+                },
+                onChanged: (value) {},
               ),
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Center(child: Text('ColL : $colL')),
               ),
-              SliderTheme(
-                data: sliderTheme,
-                child: Slider(
-                  min: 1,
-                  max: 12,
-                  divisions: 11,
-                  value: colL * 1.0,
-                  onChangeEnd: (value) {
-                    setState(() {
-                      colL = value.toInt();
-                    });
-                  },
-                  onChanged: (value) {
-                    print(value);
-                  },
-                ),
+              Slider(
+                min: 1,
+                max: 12,
+                divisions: 11,
+                value: colL * 1.0,
+                onChangeEnd: (value) {
+                  setState(() {
+                    colL = value.toInt();
+                  });
+                },
+                onChanged: (value) {
+                  print(value);
+                },
               ),
             ],
           ),

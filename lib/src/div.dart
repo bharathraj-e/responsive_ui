@@ -77,32 +77,29 @@ class Div extends StatelessWidget {
         assert(colL == null || (colL + offsetL <= 12),
             "sum of the col and the respective offset should be less than or equal to 12");
 
-  int col = 0;
-  int offsetWithCol = 0;
-
-  void _setCurrentScreen(BuildContext context) {
-    double width = MediaQuery.of(context).size.width;
-    if (width < _widthMobile) {
-      col = colS;
-      offsetWithCol = (offsetS + col >= 12) ? 12 : offsetS + col;
-    } else if (width < _widthTab) {
-      col = colM ?? colS;
-      offsetWithCol = (offsetM + col >= 12) ? 12 : offsetM + col;
-    } else {
-      col = colL ?? colM ?? colS;
-      offsetWithCol = (offsetL + col >= 12) ? 12 : offsetL + col;
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
-    _setCurrentScreen(context);
-    return _createDivWidget(child);
+    
+    return _createDivWidget(child,context);
   }
 
-  Widget _createDivWidget(Widget child) {
+  Widget _createDivWidget(Widget child, BuildContext context) {
+    int _col = 0;
+    int _offsetWithCol = 0;
+    double width = MediaQuery.of(context).size.width;
+    if (width < _widthMobile) {
+      _col = colS;
+      _offsetWithCol = (offsetS + _col >= 12) ? 12 : offsetS + _col;
+    } else if (width < _widthTab) {
+      _col = colM ?? colS;
+      _offsetWithCol = (offsetM + _col >= 12) ? 12 : offsetM + _col;
+    } else {
+      _col = colL ?? colM ?? colS;
+      _offsetWithCol = (offsetL + _col >= 12) ? 12 : offsetL + _col;
+    }
     return LayoutBuilder(builder: (ctx, box) {
-      double width = (box.maxWidth / 12) * offsetWithCol;
+      double width = (box.maxWidth / 12) * _offsetWithCol;
       return width == 0
           ? SizedBox.shrink()
           : SizedBox(
@@ -111,7 +108,7 @@ class Div extends StatelessWidget {
                 mainAxisSize: MainAxisSize.max,
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: <Widget>[
-                  SizedBox(width: (box.maxWidth / 12) * col, child: child),
+                  SizedBox(width: (box.maxWidth / 12) * _col, child: child),
                 ],
               ),
             );

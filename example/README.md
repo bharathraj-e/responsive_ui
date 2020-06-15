@@ -16,7 +16,7 @@
             ),
             Div(
                 colS: 12,
-                colM: 6,
+                colM: 6, 
                 colL: 4,
                 child: Text('responsive ui')
             )          
