@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 
 class Responsive extends StatelessWidget {
   Responsive({
-    @required this.children,
+    required this.children,
     this.runSpacing = 0.0,
     this.alignment = WrapAlignment.start,
     this.runAlignment = WrapAlignment.start,
     this.crossAxisAlignment = WrapCrossAlignment.start,
-  }) : assert(children != null, "children shoud not be Null");
+  });
 
   final List<Widget> children;
 

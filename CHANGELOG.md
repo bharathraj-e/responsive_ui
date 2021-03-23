@@ -1,4 +1,7 @@
-## [2.0.0] - 2020-06-15
+## [2.1.0] - 2021-03-23
+* Migrated to Null Safety 
+
+## [2.0.1] - 2020-06-15
 * Updated Readme 
 * Updated Example 
 

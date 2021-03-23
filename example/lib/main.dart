@@ -1,7 +1,7 @@
-import 'dart:html' as html;
 import 'package:flutter/material.dart';
 import 'package:random_color/random_color.dart';
 import 'package:responsive_ui/responsive_ui.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 void main() {
   runApp(MyApp());
@@ -23,11 +23,12 @@ class MyApp extends StatelessWidget {
 }
 
 class RespoEx extends StatelessWidget {
-  final GlobalKey<ScaffoldState> sKey = GlobalKey<ScaffoldState>();
+  final GlobalKey<ScaffoldMessengerState> _scaffoldKey =
+      GlobalKey<ScaffoldMessengerState>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      key: sKey,
+      key: _scaffoldKey,
       appBar: AppBar(
         title: Text('Responsive UI Example'),
         centerTitle: true,
@@ -35,7 +36,7 @@ class RespoEx extends StatelessWidget {
           IconButton(
               icon: Icon(Icons.info),
               onPressed: () {
-                sKey.currentState.showSnackBar(SnackBar(
+                _scaffoldKey.currentState!.showSnackBar(SnackBar(
                     content: Text(
                   'colS, colM and colL works only on small, medium and large screens respectively',
                   textAlign: TextAlign.center,
@@ -44,8 +45,7 @@ class RespoEx extends StatelessWidget {
           IconButton(
               icon: Icon(Icons.shopping_cart),
               onPressed: () {
-                html.window
-                    .open('https://pub.dev/packages/responsive_ui', '_blank');
+                launch('https://pub.dev/packages/responsive_ui');
               })
         ],
       ),

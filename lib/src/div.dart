@@ -23,7 +23,7 @@ class Div extends StatelessWidget {
   /// `12` ~ full width
   ///
   /// `null` / `default` ~ takes [ColS] value
-  final int colM;
+  final int? colM;
 
   /// Large screen `> 990.0`
   ///
@@ -34,7 +34,7 @@ class Div extends StatelessWidget {
   /// `12` ~ full width
   ///
   /// `null` / `default` ~  takes [ColM] value
-  final int colL;
+  final int? colL;
 
   /// input range [0 -12]
   ///
@@ -59,35 +59,32 @@ class Div extends StatelessWidget {
       {this.colS = 12,
       this.colM,
       this.colL,
-      @required this.child,
+      required this.child,
       this.offsetS = 0,
       this.offsetM = 0,
       this.offsetL = 0})
-      : assert(child != null, "child shoud not be Null"),
-        assert(colS == null || (colS >= 0 && colS <= 12)),
+      : assert(colS >= 0 && colS <= 12),
         assert(colM == null || (colM >= 0 && colM <= 12)),
         assert(colL == null || (colL >= 0 && colL <= 12)),
         assert(offsetS >= 0 && offsetS <= 11),
         assert(offsetM >= 0 && offsetM <= 11),
         assert(offsetL >= 0 && offsetL <= 11),
-        assert(colS == null || (colS + offsetS <= 12),
-            "sum of the col and the respective offset should be less than or equal to 12"),
+        assert((colS + offsetS <= 12),
+            "sum of the colS and the respective offsetS should be less than or equal to 12"),
         assert(colM == null || (colM + offsetM <= 12),
-            "sum of the col and the respective offset should be less than or equal to 12"),
+            "sum of the colM and the respective offsetM should be less than or equal to 12"),
         assert(colL == null || (colL + offsetL <= 12),
-            "sum of the col and the respective offset should be less than or equal to 12");
-
+            "sum of the colL and the respective offsetL should be less than or equal to 12");
 
   @override
   Widget build(BuildContext context) {
-    
-    return _createDivWidget(child,context);
+    return _createDivWidget(child, context);
   }
 
   Widget _createDivWidget(Widget child, BuildContext context) {
     int _col = 0;
     int _offsetWithCol = 0;
-    double width = MediaQuery.of(context).size.width;
+    final double width = MediaQuery.of(context).size.width;
     if (width < _widthMobile) {
       _col = colS;
       _offsetWithCol = (offsetS + _col >= 12) ? 12 : offsetS + _col;
@@ -99,7 +96,7 @@ class Div extends StatelessWidget {
       _offsetWithCol = (offsetL + _col >= 12) ? 12 : offsetL + _col;
     }
     return LayoutBuilder(builder: (ctx, box) {
-      double width = (box.maxWidth / 12) * _offsetWithCol;
+      final double width = (box.maxWidth / 12) * _offsetWithCol;
       return width == 0
           ? SizedBox.shrink()
           : SizedBox(
