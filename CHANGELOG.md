@@ -1,3 +1,6 @@
+## [2.1.1] - 2022-01-14
+* Add colXL and offsetXL to Div()
+
 ## [2.1.0] - 2021-03-23
 * Migrated to Null Safety 
 
