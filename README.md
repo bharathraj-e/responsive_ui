@@ -9,8 +9,6 @@
 
 It works as same as Bootstrap / Materialize Row Column method, Splitting screen into 12 columns and placing widget by combining column based on screen size.
 
-
-
 ```dart
     Responsive(
         children: <Widget>[
@@ -33,26 +31,25 @@ It works as same as Bootstrap / Materialize Row Column method, Splitting screen 
     )
 ```
 
-
-<details><summary>WEB EXAMPLE</summary>
-<p>
+### Live demo 
 
 ### [https://bharathraj-e.github.io/responsive_ui_example/](https://bharathraj-e.github.io/responsive_ui_example/) Have a look!
 
-</p>
-</details>
 
-<details><summary>SCREENS</summary>
-<p>
+### Screen Types
+| Type  | Default Size   |
+| ----- | -------------- |
+| colXS | < 375.0        |
+| colS  | 375.0 - 596.0  |
+| colM  | 596.0 - 897.0  |
+| colL  | 897.0 - 1232.0 |
+| colXL | >1232.0        |
 
- - colS | mobiles ( <= 600px )
+### override default size
 
- - colM | tablets ( 600px - 990px )
+```dart
 
- - colL | laptops ( > 990px )
-</p>
-</details>
-
+````
 
 # Widgets
 
@@ -65,9 +62,6 @@ The Responsive UI Package contains two simple widgets.
 ## 1. Div()
 
 Div() intakes child & column sizes.
-
-<details><summary>Arguments</summary>
-<p>
 
 | Arguments | inputs     | if null / default to |
 | --------- | ---------- | -------------------- |
@@ -90,8 +84,6 @@ Div() intakes child & column sizes.
 
 - To offset, simply add `offsetS` / `offsetM` / `offsetL` to the Div() widget with `colS` / `colM` / `colL` respectively.
 
-</p>
-</details>
 
 ## 2. Responsive()
 
