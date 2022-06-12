@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:random_color/random_color.dart';
 import 'package:responsive_ui/responsive_ui.dart';
-import 'package:url_launcher/url_launcher.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 
 void main() {
-  runApp(MyApp());
+  Responsive.setGlobalBreakPoints(0, 596.0, 897.0, 1232.0);
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
+  const MyApp({Key? key}) : super(key: key);
+
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
@@ -17,35 +19,24 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: RespoEx(),
+      home: const RespoEx(),
     );
   }
 }
 
 class RespoEx extends StatelessWidget {
-  final GlobalKey<ScaffoldMessengerState> _scaffoldKey =
-      GlobalKey<ScaffoldMessengerState>();
+  const RespoEx({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      key: _scaffoldKey,
       appBar: AppBar(
-        title: Text('Responsive UI Example'),
+        title: const Text('Responsive UI Example'),
         centerTitle: true,
         actions: <Widget>[
           IconButton(
-              icon: Icon(Icons.info),
+              icon: const Icon(Icons.shopping_cart),
               onPressed: () {
-                _scaffoldKey.currentState!.showSnackBar(SnackBar(
-                    content: Text(
-                  'colS, colM and colL works only on small, medium and large screens respectively',
-                  textAlign: TextAlign.center,
-                )));
-              }),
-          IconButton(
-              icon: Icon(Icons.shopping_cart),
-              onPressed: () {
-                launch('https://pub.dev/packages/responsive_ui');
+                launchUrlString('https://pub.dev/packages/responsive_ui');
               })
         ],
       ),
@@ -56,14 +47,16 @@ class RespoEx extends StatelessWidget {
             children: List.generate(20, (i) {
               if (i == 5) {
                 return Div(
-                    colS: 5,
-                    offsetL: 2,
+                    divison: const Division(
+                      colS: 5,
+                      offsetL: 2,
+                    ),
                     child: Card(
                       child: Column(
                         mainAxisSize: MainAxisSize.max,
-                        children: <Widget>[
+                        children: const <Widget>[
                           Padding(
-                            padding: const EdgeInsets.all(8.0),
+                            padding: EdgeInsets.all(8.0),
                             child: Text(
                                 'Nested Responsive inside 6th Div() with "fixed col 4 and offsetL 2"'),
                           ),
@@ -85,29 +78,33 @@ class RespoEx extends StatelessWidget {
 }
 
 class GenerateWidget extends StatefulWidget {
-  GenerateWidget(this.i);
+  const GenerateWidget(this.i, {Key? key}) : super(key: key);
   final int i;
 
   @override
-  _GenerateWidgetState createState() => _GenerateWidgetState();
+  State<StatefulWidget> createState() => _GenerateWidgetState();
 }
 
 class _GenerateWidgetState extends State<GenerateWidget> {
-  RandomColor _randomColor = RandomColor();
+  int colXS = 12;
   int colS = 4;
   int colM = 4;
   int colL = 4;
+  int colXL = 3;
   @override
   Widget build(BuildContext context) {
     return Div(
-      colS: colS,
-      colM: colM,
-      colL: colL,
+      divison: Division(
+        colXS: colXS,
+        colS: colS,
+        colM: colM,
+        colL: colL,
+        colXL: colXL,
+      ),
       child: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Card(
-          color:
-              _randomColor.randomColor(colorBrightness: ColorBrightness.light),
+          color: Colors.primaries[widget.i % Colors.primaries.length],
           child: Column(
             children: <Widget>[
               Padding(
@@ -116,6 +113,21 @@ class _GenerateWidgetState extends State<GenerateWidget> {
                   'Div() ${widget.i}',
                   style: Theme.of(context).textTheme.bodyText1,
                 ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Center(child: Text('ColXS : $colXS')),
+              ),
+              Slider.adaptive(
+                min: 1,
+                max: 12,
+                divisions: 12,
+                value: colXS * 1.0,
+                onChanged: (value) {
+                  setState(() {
+                    colXS = value.toInt();
+                  });
+                },
               ),
               Padding(
                 padding: const EdgeInsets.all(8.0),
@@ -162,9 +174,23 @@ class _GenerateWidgetState extends State<GenerateWidget> {
                     colL = value.toInt();
                   });
                 },
-                onChanged: (value) {
-                  print(value);
+                onChanged: (value) {},
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Center(child: Text('ColXL : $colXL')),
+              ),
+              Slider(
+                min: 1,
+                max: 12,
+                divisions: 11,
+                value: colXL * 1.0,
+                onChangeEnd: (value) {
+                  setState(() {
+                    colXL = value.toInt();
+                  });
                 },
+                onChanged: (value) {},
               ),
             ],
           ),

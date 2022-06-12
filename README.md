@@ -2,7 +2,7 @@
 
 [![Pub](https://img.shields.io/pub/v/responsive_ui.svg?style=flat-square)](https://pub.dartlang.org/packages/responsive_ui)
 
-`responsive_ui` package helps you to create a responsive widget and Nested responsive widgets. Works on Android,iOS, **Web** with both Portrait and LandScape mode.
+`responsive_ui` package helps you to create a responsive widget and Nested responsive widgets. Works on all Platforms.
 
 
 ## Getting Started
@@ -15,14 +15,18 @@ It works as same as Bootstrap / Materialize Row Column method, Splitting screen 
     Responsive(
         children: <Widget>[
             Div(
-                colS: 5,
-                offsetL: 2,
+                division:Division(
+                    colS: 5,
+                    offsetL: 2,
+                ),
                 child: Card(child: Icon(Icons.game))
             ),
             Div(
-                colS: 12,
-                colM: 6,
-                colL: 4,
+                division:Division(
+                    colS: 12,
+                    colM: 6,
+                    colL: 4,
+                ),  
                 child: Text('responsive ui')
             )          
         ]
@@ -66,7 +70,7 @@ Div() intakes child & column sizes.
 <p>
 
 | Arguments | inputs     | if null / default to |
-|-----------|------------|----------------------|
+| --------- | ---------- | -------------------- |
 | `child`   | Widget     | not null / required  |
 | `colS`    | (int) 0-12 | `12`                 |
 | `colM`    | (int) 0-12 | `ColS` value         |
@@ -97,7 +101,7 @@ Responsive intakes `List<Widget>` or `List<Div>` with default column/screen size
 <p>
 
 | Arguments            | inputs                   | if null / default             |
-|----------------------|--------------------------|-------------------------------|
+| -------------------- | ------------------------ | ----------------------------- |
 | `children`           | List<Widget> / List<Div> | not null / required / empty[] |
 | `alignment`          | WrapAlignment            | WrapAlignment.start           |
 | `runAlignment`       | WrapAlignment            | WrapAlignment.start           |

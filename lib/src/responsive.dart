@@ -1,14 +1,50 @@
 import 'package:flutter/material.dart';
 
+/// This widget requires `Finite width`
+///
+/// The default breakpoints are:
+///
+/// colXS < ColS < ColM < ColL < ColXL
+///
+///  0 < 375.0 < 596.0 < 897.0 < 1232.0 < xl
+///
+/// To change the breakpoints, use `Responsive.setGlobalBreakPoints` in `main()`
 class Responsive extends StatelessWidget {
-  Responsive({
+  const Responsive({
+    Key? key,
     required this.children,
     this.runSpacing = 0.0,
     this.alignment = WrapAlignment.start,
     this.runAlignment = WrapAlignment.start,
     this.crossAxisAlignment = WrapCrossAlignment.start,
-  });
+  }) : super(key: key);
 
+  static double startColS = 375.0;
+  static double startColM = 596.0;
+  static double startColL = 897.0;
+  static double startColXL = 1232.0;
+
+  /// Use this to set your own break points
+  ///
+  /// this applies throughout the entire app
+  ///
+  /// Use in main()
+  ///
+  /// colXS < ColS < ColM < ColL < ColXL
+  ///
+  ///  0 < 375 < 596 < 897 < 1232 < xl
+  static void setGlobalBreakPoints(
+      double colSstartingWidth,
+      double colMstartingWidth,
+      double colLstartingWidth,
+      double colXLstartingWidth) {
+    startColS = colSstartingWidth;
+    startColM = colMstartingWidth;
+    startColL = colLstartingWidth;
+    startColXL = colXLstartingWidth;
+  }
+
+  /// Use `Div()` as a Widget
   final List<Widget> children;
 
   /// How the children within a run should be placed in the main axis.
@@ -56,9 +92,9 @@ class Responsive extends StatelessWidget {
     return Wrap(
       alignment: alignment,
       runSpacing: runSpacing,
-      children: children,
       runAlignment: runAlignment,
       crossAxisAlignment: crossAxisAlignment,
+      children: children,
     );
   }
 }
