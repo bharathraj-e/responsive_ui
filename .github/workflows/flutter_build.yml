@@ -20,5 +20,5 @@ jobs:
       - uses: bluefireteam/flutter-gh-pages@v7
         with:
           targetBranch: gh-page
-          baseHref: /
+          baseHref: /responsive_ui/
           workingDir: example

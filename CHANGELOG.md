@@ -1,5 +1,11 @@
+## [3.0.0] - 2022-06-12
+* Flutter V3 upgrades
+* Added `Division()` class for setting column sizes and offsets
+* Added `Responsive.setGlobalBreakPoints()`.
+  
 ## [2.1.1] - 2022-01-14
 * Add colXL and offsetXL to Div()
+* (not published)
 
 ## [2.1.0] - 2021-03-23
 * Migrated to Null Safety 
