@@ -46,11 +46,16 @@ class Div extends StatelessWidget {
         final double singleBox = box.maxWidth / 12;
         final double childWidth = singleBox * col;
         final double childOffset = singleBox * offset;
+
+        ///
+        /// #5 fixed by @Chappie74
+        ///
         final double otherWidths = (12 - col) * singleBox;
-        final double recalculatedChildWidth =
-            (childWidth + otherWidths) > box.maxWidth
-                ? childWidth - ((childWidth + otherWidths) - box.maxWidth)
-                : childWidth;
+
+        /// Recaluclate childWidth as the calulated width souldn't be greater than box.maxWidth
+        final double recalculatedChildWidth = (childWidth + otherWidths) > box.maxWidth
+            ? childWidth - ((childWidth + otherWidths) - box.maxWidth)
+            : childWidth;
 
         return SizedBox(
           width: recalculatedChildWidth + childOffset,

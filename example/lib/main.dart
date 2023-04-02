@@ -111,7 +111,7 @@ class _GenerateWidgetState extends State<GenerateWidget> {
                 padding: const EdgeInsets.all(8.0),
                 child: Text(
                   'Div() ${widget.i}',
-                  style: Theme.of(context).textTheme.bodyText1,
+                  style: Theme.of(context).textTheme.bodyMedium,
                 ),
               ),
               Padding(

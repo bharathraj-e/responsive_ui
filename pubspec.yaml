@@ -2,10 +2,15 @@ name: responsive_ui
 description: responsive ui Flutter package helps you to create a responsive and Nested responsive widget. Works on android, iOs, Web with both portrait and landscape mode.
 version: 3.0.1
 homepage: https://github.com/bharathraj-e/responsive_ui
+issue_tracker: https://github.com/bharathraj-e/responsive_ui/issues
 
 environment:
-  sdk: '>=2.12.0 <3.0.0'
+  sdk: '>=2.17.0 <3.0.0'
   flutter: ">=2.0.0"
+
+screenshots:
+  - description: "Responsive UI preview gif"
+    path: pics/out.gif
 
 dependencies:
   flutter:

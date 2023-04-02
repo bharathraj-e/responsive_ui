@@ -1,3 +1,7 @@
+## [3.0.1] - 2023-04-02
+* Fixed [Calculations issue](https://github.com/bharathraj-e/responsive_ui/issues/5) by [@Chappie74](https://github.com/Chappie74)
+
+
 ## [3.0.0] - 2022-06-12
 * Flutter V3 upgrades
 * Added `Division()` class for setting column sizes and offsets
